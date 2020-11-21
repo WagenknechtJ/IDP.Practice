@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import numpy as np
-import pprint
+import pprint 
 
 #file = open('C:\\Users\\koprekj\\github\\PracticeandLearning\\DP00613.json',)
 file = open('C:\\Users\\koprekj\\github\\PracticeandLearning\\GeneFilePP.json',)
