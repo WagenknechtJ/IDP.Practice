@@ -12,8 +12,7 @@ ____________________________________________________________
 
 GeneFilePP.json (PP stands for pretty print) JSON Structure:
 
-data - array?
-  each sample is an object within an array
+data - object with a nested array of objects for each sample
     "disprot_consensus" object has the arrays:
       "disorder_function"
       "full"
