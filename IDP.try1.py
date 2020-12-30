@@ -22,60 +22,32 @@ for i in data['data']:
         IDs.update({i['disprot_id']: i['sequence'][start: end]})
         ScrollingSeq += i['sequence'][start: end]
 
-pprint.pprint(IDs)
-print(ScrollingSeq)
+#pprint.pprint(IDs)
+#print(ScrollingSeq)
 
 totalAA = 0
-# AADict = dict.fromkeys(['ACount', 'RCount', 'NCount', 'DCount', 'CCount', 'QCount', 'ECount', 'GCount', 'HCount', 'ICount', 'LCount', 'KCount', 'MCount', 'FCount', 'PCount', 'SCount', 'TCount', 'WCount', 'YCount', 'VCount'])
-ACount, RCount, NCount, DCount, CCount, QCount, ECount, GCount, HCount, ICount, LCount, KCount, MCount, FCount, PCount, SCount, TCount, WCount, YCount, VCount  = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AADict = dict.fromkeys(['ACount', 'RCount', 'NCount', 'DCount', 'CCount', 'QCount', 'ECount', 'GCount', 'HCount', 'ICount', 'LCount', 'KCount', 'MCount', 'FCount', 'PCount', 'SCount', 'TCount', 'WCount', 'YCount', 'VCount'])
 
 for j in ScrollingSeq:
     totalAA += 1
-    if j == 'A':
-        ACount += 1
-    if j == 'R':
-        RCount += 1
-    if j == 'N':
-        NCount += 1
-    if j == 'D':
-        DCount += 1
-    if j == 'C':
-        CCount += 1
-    if j == 'Q':
-        QCount += 1
-    if j == 'E':
-        ECount += 1
-    if j == 'G':
-        GCount += 1
-    if j == 'H':
-        HCount += 1
-    if j == 'I':
-        ICount += 1
-    if j == 'L':
-        LCount += 1
-    if j == 'K':
-        KCount += 1
-    if j == 'M':
-        MCount += 1
-    if j == 'F':
-        FCount += 1
-    if j == 'P':
-        PCount += 1
-    if j == 'S':
-        SCount += 1
-    if j == 'T':
-        TCount += 1
-    if j == 'W':
-        WCount += 1
-    if j == 'Y':
-        YCount += 1
-    if j == 'V':
-        VCount += 1
 
 print("\n\nTotal AA's = \t" + str(totalAA))
-print("Cystines = \t" + str(CCount) + "\tFraction of AA's that are cystine = \t" + str(CCount/totalAA))
-print("Basic AA's = \t" + str(KCount + RCount) + "\tFraction of AA's that are basic = \t" + str((KCount + RCount)/totalAA))
-print("Acidic AA's = \t" + str(DCount + QCount) + "\tFraction of AA's that are acidic = \t" + str((DCount + QCount)/totalAA))
+
+for key in AADict:
+    counts = 0
+    stringed = str(key)
+    seeking = stringed[0]
+    for j in ScrollingSeq:
+        if j == seeking:
+            counts += 1
+    AADict[key] = counts
+    fraction = round(int(AADict[key])/totalAA, 3)
+    print("Total " + seeking + " =\t" + str(counts) + "\tFraction of AA's that are " + seeking + " = \t\t" + str(fraction))
+
+basics = int(AADict['RCount']) + int(AADict['HCount']) + int(AADict['KCount'])
+print("\nBasic AA's = \t" + str(basics) + "\tFraction of AA's that are basic = \t" + str(round(basics/totalAA, 3)))
+acidics = int(AADict['DCount']) + int(AADict['ECount'])
+print("Acidic AA's = \t" + str(acidics) + "\tFraction of AA's that are acidic = \t" + str(round(acidics/totalAA, 3)))
 
 
 
