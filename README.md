@@ -1,4 +1,4 @@
-DISCLAIMER: data is from https://www.disprot.org/ - I do not claim any right to it, but use it purely for an educational purpose
+DISCLAIMER: data is from https://www.disprot.org/ - I do not claim any right to it, but use it purely for an educational purpose. Codon Use Table is from https://www.genscript.com/tools/codon-frequency-table
 
 _________________________________________________________
 
