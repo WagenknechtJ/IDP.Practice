@@ -1,19 +1,31 @@
-DISCLAIMER: data is from https://www.disprot.org/ - I do not claim any right to it, but use it purely for an educational purpose
+THE PROJECT:
+
+This project, intended as bioinformatics practice for myself, aims to explore the cause of disorder in the proteome of C. elegans, a roundworm with extensive data behind it. 
 
 _________________________________________________________
 
-Where we're at?
+DISCLAIMER:
 
-IDPtry1.py -> currently, pulls data from JSON file, gathers the disordered sequence for each ID in a library??, then creates one long string combining all disordered regions into one big sequence
+disordered protein sequence data is from https://www.disprot.org/;
+Codon Use Table is from https://www.genscript.com/tools/codon-frequency-table;
+I do not claim any right to this data, nor do I intend to profit from this project, rather I just want to use it purely for an educational purpose, for practice coding.
 
-IDP.Pandas.py -> currently converts JSON data into python?, prints the first 5 objects
+_________________________________________________________
+
+WHERE WE'RE AT:
+
+IDPtry1.py -> currently, pulls data from JSON file, gathers the disordered sequence for each ID in a dictionary, then creates one long string combining all disordered regions into one big sequence. finds occurrences and frequency of each amino acid in the disordered sections, then compares that to codon use for C. elegans in graphical form.
+
+IDP.Pandas.py -> struggling, currently paused and may abandon as it's easier to manage the data without converting to pandas (there's just too much buried).
 
 ____________________________________________________________
 
+NOTES TO MYSELF:
+
+
 GeneFilePP.json (PP stands for pretty print) JSON Structure:
 
-data - array?
-  each sample is an object within an array
+data - object with a nested array of objects for each sample
     "disprot_consensus" object has the arrays:
       "disorder_function"
       "full"

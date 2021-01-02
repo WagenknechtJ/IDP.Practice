@@ -2062,7 +2062,7 @@
             "uniref50": "UniRef50_Q9XTY3",
             "uniref90": "UniRef90_Q9XTY3"
         },
-        9{
+        {
             "acc": "Q09514",
             "creator": "jlecle",
             "date": "2018-08-20T08:55:50.000Z",
@@ -2580,6 +2580,5 @@
             "uniref50": "UniRef50_Q8IG33",
             "uniref90": "UniRef90_Q8IG33"
         }
-    ],
-    "size": 13
+    ]
   }
