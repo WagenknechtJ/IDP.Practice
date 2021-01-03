@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 #file = open('C:\\Users\\koprekj\\github\\PracticeandLearning\\DP00613.json',)
 file = open('C:\\Users\\koprekj\\github\\IDP.Practice\\GeneFilePP.json',)
 
-#seaborn's distplot function??
-
 data = json.load(file)
 
 #create dictionary of species and disordered sequence
