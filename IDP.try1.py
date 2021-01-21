@@ -1,13 +1,18 @@
 import json
 import matplotlib.pyplot as plt
+import numpy as np
 
-#file = open('C:\\Users\\koprekj\\github\\PracticeandLearning\\DP00613.json',)
+# TO DO NEXT: Capture aa dist. of full c. elegans proteome,
+#   compare aa dist. between each protein.
+#   what else can be looked into? repeating aas? sections very rich in any aa?
+
+# file = open('C:\\Users\\koprekj\\github\\PracticeandLearning\\DP00613.json',)
 file = open('C:\\Users\\koprekj\\github\\IDP.Practice\\GeneFilePP.json',)
 
 data = json.load(file)
 
-#create dictionary of species and disordered sequence
-#by using a variable(s) to store the start and end of the sequence, then grab the sequence
+# create dictionary of species and disordered sequence
+# by using a variable(s) to store the start and end of the sequence, then grab the sequence
 
 IDs = {}
 ScrollingSeq = ""
@@ -24,8 +29,9 @@ AADict = dict.fromkeys(['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', '
 for j in ScrollingSeq:
     totalAA += 1
 
-print("\n\nTotal AA's = \t" + str(totalAA))
+print("\n\nTotal aa's = \t" + str(totalAA))
 
+# counts how often each aa shows up in long sequence string
 Aminos = {}
 for key in AADict:
     counts = 0
@@ -36,13 +42,14 @@ for key in AADict:
     AADict[key] = counts
     fraction = round(int(AADict[key])/totalAA, 3)
     Aminos.update({key: fraction})
-    print("Total " + stringed + " =\t" + str(counts) + "\tFraction of AA's that are " + stringed + " = \t\t" + str(fraction))
+    print("Total " + stringed + " =\t" + str(counts) + "\tFraction of aa's that are " + stringed + " = \t\t" + str(fraction))
 
 basics = int(AADict['R']) + int(AADict['H']) + int(AADict['K'])
-print("\nBasic AA's = \t" + str(basics) + "\tFraction of AA's that are basic = \t" + str(round(basics/totalAA, 3)))
+print("\nBasic aa's = \t" + str(basics) + "\tFraction of aa's that are basic = \t" + str(round(basics/totalAA, 3)))
 acidics = int(AADict['D']) + int(AADict['E'])
-print("Acidic AA's = \t" + str(acidics) + "\tFraction of AA's that are acidic = \t" + str(round(acidics/totalAA, 3)))
+print("Acidic aa's = \t" + str(acidics) + "\tFraction of aa's that are acidic = \t" + str(round(acidics/totalAA, 3)))
 
+# codon transcription frequency, taken from internet
 CodonUse = {'F': (23.9+24)/1000,
             'L': (10.2+20.1+21.1+14.9+7.9+12.1)/1000,
             'S': (16.8+10.7+20.4+12.1+12.1+8.3)/1000,
@@ -64,6 +71,7 @@ CodonUse = {'F': (23.9+24)/1000,
             'E': (40.6+24.4)/1000,
             'G': (11+6.7+31.5+4.5)/1000, }
 
+# graphs!
 plt.bar(AADict.keys(), AADict.values(), 0.33, color='b', align='edge', label = 'Disordered')
 plt.title("Amino acid distribution, disordered sections of C. elegans proteome")
 plt.xlabel("Amino acid")
@@ -78,6 +86,38 @@ plt.ylabel("Fraction of Occcurances")
 plt.legend()
 plt.show()
 
+# counts how often each aa shows up in each protein - makes list of the proteins (as dictionaries) and dictionaries for each protein containing each aa and occurances of them
+colorList = ['brown','peru','darkorange','gold','lawngreen','forestgreen','turquoise','deepskyblue','b','mediumslateblue','blueviolet','violet','magenta','crimson']
+labels = AADict.keys()
+x = np.arange(len(labels))
+Proteins = []
+incrementor = 0
+start = -0.5
+
+for protein in IDs:
+    dict = {}
+    for keys in AADict:
+        r = 0
+        for j in str(IDs[protein]):
+            if j == str(keys):
+                r += 1
+        dict.update({keys: r})
+    Proteins.append(dict)
+    plt.bar(x+start, dict.values(), 0.06, color=colorList[incrementor], align='edge', label = protein)
+    incrementor += 1
+    start += .07
+    # TO DO - continue to make numbers right to line up well
+
+plt.title("Disordered sections of C. elegans aa distribution by protein")
+plt.xlabel("Amino acid")
+plt.ylabel("Number of Occcurances")
+plt.legend()
+plt.show()
+
+print("\nProteins list of dictionaries is")
+print(Proteins)
+
+# TO DO - use frequency instead of occurances to level graph!
 
 # WHATS NEXT - find average AA distribution in proteins in roundworm, compare to AA distribution here
 # look further into other areas of difference or comparison
