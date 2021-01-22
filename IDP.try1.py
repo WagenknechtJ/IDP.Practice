@@ -101,23 +101,22 @@ for protein in IDs:
         for j in str(IDs[protein]):
             if j == str(keys):
                 r += 1
-        dict.update({keys: r})
+        dict.update({keys: (r/len(IDs[protein]))})
     Proteins.append(dict)
     plt.bar(x+start, dict.values(), 0.06, color=colorList[incrementor], align='edge', label = protein)
     incrementor += 1
     start += .07
-    # TO DO - continue to make numbers right to line up well
 
-plt.title("Disordered sections of C. elegans aa distribution by protein")
+plt.xticks(x, AADict.keys())
+plt.title("Disordered sections of C. elegans aa frequency, per protein in database")
 plt.xlabel("Amino acid")
-plt.ylabel("Number of Occcurances")
+plt.ylabel("Frequency (per protein)")
 plt.legend()
 plt.show()
 
+
 print("\nProteins list of dictionaries is")
 print(Proteins)
-
-# TO DO - use frequency instead of occurances to level graph!
 
 # WHATS NEXT - find average AA distribution in proteins in roundworm, compare to AA distribution here
 # look further into other areas of difference or comparison
