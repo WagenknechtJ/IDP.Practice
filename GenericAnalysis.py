@@ -1,7 +1,6 @@
 import json
 import matplotlib.pyplot as plt
-import numpy as np
-import statistics
+from collections import defaultdict
 
 # TODO - ADD MORE COMMENTS;
 # SPLIT FUNCTIONS INTO... WELL... FUNCTIONS;
@@ -9,7 +8,7 @@ import statistics
 # GET ERROR BARS WORKING?
 
 file = open('C:\\Users\\koprekj\\github\\IDP.Practice\\data\\eColiDisorderedProteome.json', encoding='utf8')
-file2 = open('C:\\Users\\koprekj\\github\\IDP.Practice\\eColiProteome.fasta',)
+file2 = open('C:\\Users\\koprekj\\github\\IDP.Practice\\data\\eColiProteome.fasta',)
 
 data = json.load(file)
 
@@ -66,44 +65,40 @@ for keys in AADict:
     proteome.update({keys: (r/z)})
 print(proteome)
 
-# # counts how often each aa shows up in each protein - makes list of the proteins (as dictionaries) and dictionaries for each protein containing each aa and occurances of them
-# colorList = ['brown','peru','darkorange','gold','lawngreen','forestgreen','turquoise','deepskyblue','b','mediumslateblue','blueviolet','violet','magenta','crimson']
-# labels = AADict.keys()
-# x = np.arange(len(labels))
-Proteins = []
-#go through each protein
+# # counts how often each aa shows up in each protein
+Proteins = defaultdict(list)
+# Proteins = {}
+fig, ax = plt.subplots()
+# go through each protein
 for protein in IDs:
-    dict = {}
-    #go through each aa
+    # go through each aa
     for keys in AADict:
         r = 0
         for j in str(IDs[protein]):
             if j == str(keys):
                 r += 1
-        dict.update({keys: (r/len(IDs[protein]))})
-        plt.scatter(dict.keys(), dict.values())
-    Proteins.append(dict)
-    # TODO - CHANGE GRAPH TYPE TO MAKE MORE SENSE!
+        Proteins[str(keys)].append(r/len(IDs[protein]))
+print(Proteins)
 
-Ranges = []
-for keys in AADict:
-    list = [sub[keys] for sub in Proteins]
-    Ranges.append([max(list), min(list)])
+ax.boxplot(Proteins.values(), labels=Proteins.keys())
+
+# Ranges = []
+# for keys in AADict:
+#     list = [sub[keys] for sub in Proteins]
+#     Ranges.append([max(list), min(list)])
 
 plt.xlabel("Amino acid")
 plt.ylabel("Fraction of Occcurances")
 plt.show()
 
 # figure out yerr
-plt.bar(Aminos.keys(), Aminos.values(), 0.33, color='b', align='edge', label = 'Disordered')
-plt.bar(proteome.keys(), proteome.values(), -0.33, color='g', align='edge', label = 'Proteome')
+plt.bar(Aminos.keys(), Aminos.values(), 0.33, color='b', align='edge', label='Disordered')
+plt.bar(proteome.keys(), proteome.values(), -0.33, color='g', align='edge', label='Proteome')
 plt.title("Disordered sections AA distribution vs Codon Use")
 plt.xlabel("Amino acid")
 plt.ylabel("Fraction of Occcurances")
 plt.legend()
 plt.show()
-print("\nProteins list of dictionaries is")
-print(Proteins)
 
 file.close()
 file2.close()
