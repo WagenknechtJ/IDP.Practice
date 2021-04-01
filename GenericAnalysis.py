@@ -1,6 +1,7 @@
 import json
 import matplotlib.pyplot as plt
 from collections import defaultdict
+import numpy
 
 # TODO - ADD MORE COMMENTS;
 # SPLIT FUNCTIONS INTO... WELL... FUNCTIONS;
@@ -11,6 +12,7 @@ file = open('C:\\Users\\koprekj\\github\\IDP.Practice\\data\\eColiDisorderedProt
 file2 = open('C:\\Users\\koprekj\\github\\IDP.Practice\\data\\eColiProteome.fasta',)
 
 data = json.load(file)
+organism = str(data['data'][0]['organism'])
 
 IDs = {}
 ScrollingSeq = ""
@@ -89,12 +91,13 @@ ax.boxplot(Proteins.values(), labels=Proteins.keys())
 
 plt.xlabel("Amino acid")
 plt.ylabel("Fraction of Occcurances")
+plt.title("Distribution of amino acid frequencies of different disordered proteins of " + organism)
 plt.show()
 
 # figure out yerr
 plt.bar(Aminos.keys(), Aminos.values(), 0.33, color='b', align='edge', label='Disordered')
 plt.bar(proteome.keys(), proteome.values(), -0.33, color='g', align='edge', label='Proteome')
-plt.title("Disordered sections AA distribution vs Codon Use")
+plt.title("Amino Acid frequencies of disordered sections of protein vs proteome, of " + organism)
 plt.xlabel("Amino acid")
 plt.ylabel("Fraction of Occcurances")
 plt.legend()
@@ -102,3 +105,6 @@ plt.show()
 
 file.close()
 file2.close()
+
+
+#def seekaa():
